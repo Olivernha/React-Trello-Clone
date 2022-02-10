@@ -13,6 +13,7 @@ const Column : React.FC<ColumnProps>= (props) =>{
             <Card text="Generate app scaffold" />
             <Card text="Learn TypeScript" />
              <Card text="Begin to use static typing" />
+
              </ColumnContainer>
     )
 }

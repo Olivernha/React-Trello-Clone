@@ -37,7 +37,9 @@ const appData: AppState = {
     },
   ],
 };
-const AppStateContext = createContext<AppStateContextProps>({} as AppStateContextProps) ;
+const AppStateContext = createContext<AppStateContextProps>(
+  {} as AppStateContextProps
+);
 export const AppStateProvider: FC = ({ children }) => {
   const { lists } = appData;
 
@@ -50,4 +52,7 @@ export const AppStateProvider: FC = ({ children }) => {
       {children}
     </AppStateContext.Provider>
   );
+};
+export const useAppState = () => {
+  return useContext(AppStateContext);
 };

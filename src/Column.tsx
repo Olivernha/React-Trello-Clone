@@ -1,5 +1,7 @@
-import { ColumnContainer, ColumnTitle, CardContainer } from "./styles"
+import { ColumnContainer, ColumnTitle,  } from "./styles"
 import React from "react";
+import { Card } from "./Card"
+
 type ColumnProps = {
     text: string,
 
@@ -8,9 +10,9 @@ const Column : React.FC<ColumnProps>= (props) =>{
     return (
         <ColumnContainer>
              <ColumnTitle>{props.text}</ColumnTitle>
-             <CardContainer>Generate app scaffold</CardContainer>
-             <CardContainer>Learn TypeScript</CardContainer>
-             <CardContainer>Begin to use static typing</CardContainer>
+            <Card text="Generate app scaffold" />
+            <Card text="Learn TypeScript" />
+             <Card text="Begin to use static typing" />
              </ColumnContainer>
     )
 }

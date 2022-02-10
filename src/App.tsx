@@ -4,16 +4,13 @@ import {
   ColumnTitle,
   CardContainer,
 } from "./styles";
+import Column from "./Column";
 
 const App = () => {
   return (
     <AppContainer>
-      <ColumnContainer>
-        <ColumnTitle>Todo:</ColumnTitle>
-        <CardContainer>FirstItem</CardContainer>
-        <CardContainer>SecondItem</CardContainer>
-        <CardContainer>ThirdItem</CardContainer>
-      </ColumnContainer>
+      <Column text="Todo:" />
     </AppContainer>
   );
-};export default App;
+};
+export default App;

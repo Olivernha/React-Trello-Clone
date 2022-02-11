@@ -3,13 +3,15 @@ import React from "react";
 import { Card } from "./Card";
 import { useAppState } from "./state/AppStateContext";
 import {AddNewItem} from "./AddNewItem";
+import { addTask } from "./state/actions"
 
 type ColumnProps = {
   text: string;
   id: string;
 };
 const Column: React.FC<ColumnProps> = (props) => {
-  const { getTasksByListId } = useAppState();
+    const { getTasksByListId, dispatch } = useAppState()
+
   const tasks = getTasksByListId(props.id);
   return (
     <ColumnContainer>
@@ -19,7 +21,7 @@ const Column: React.FC<ColumnProps> = (props) => {
       ))}
       <AddNewItem
         toggleButtonText="+ Add another card"
-        onAdd={console.log}
+        onAdd={(text) => dispatch(addTask(text, props.id))}
         dark
       />
     </ColumnContainer>

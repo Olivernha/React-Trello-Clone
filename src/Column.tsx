@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useItemDrag } from "./utils/useItemDrag";
+import { isHidden } from "./utils/isHidden";
 
 import { ColumnContainer, ColumnTitle } from "./styles";
 import React from "react";
@@ -32,9 +33,9 @@ const Column: React.FC<ColumnProps> = ({ id, text }) => {
       }
     }),
   });
-  drag(drop(ref));
+  // drag(drop(ref));
   return (
-    <ColumnContainer ref={ref}>
+    <ColumnContainer ref={ref} isHidden={isHidden(draggedItem, "COLUMN", id)}>
       <ColumnTitle>{text}</ColumnTitle>
       {tasks.map((task) => (
         <Card text={task.text} key={task.id} id={task.id} />

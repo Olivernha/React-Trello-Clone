@@ -1,12 +1,16 @@
-import { useDragLayer } from "react-dnd";
-import Column from "./Column";
-import { CustomDragLayerContainer, DragPreviewWrapper } from "./styles";
-import { useAppState } from "./state/AppStateContext";
+import { useDragLayer } from "react-dnd"
+import { Column } from "./Column"
+import {
+  CustomDragLayerContainer,
+  DragPreviewWrapper
+} from "./styles"
+import { useAppState } from "./state/AppStateContext"
+
 export const CustomDragLayer = () => {
-  const { draggedItem } = useAppState();
+  const { draggedItem } = useAppState()
   const { currentOffset } = useDragLayer((monitor) => ({
-    currentOffset: monitor.getSourceClientOffset(),
-  }));
+    currentOffset: monitor.getSourceClientOffset()
+  }))
 
   return draggedItem && currentOffset ? (
     <CustomDragLayerContainer>
@@ -15,9 +19,8 @@ export const CustomDragLayer = () => {
           id={draggedItem.id}
           text={draggedItem.text}
           isPreview
-          // ...
         />
       </DragPreviewWrapper>
     </CustomDragLayerContainer>
-  ) : null;
-};
+  ) : null
+}

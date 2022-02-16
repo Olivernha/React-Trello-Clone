@@ -1,48 +1,52 @@
-import { useRef } from "react";
-import { useItemDrag } from "./utils/useItemDrag";
-import { isHidden } from "./utils/isHidden";
+import { useRef } from "react"
+import { ColumnContainer, ColumnTitle } from "./styles"
+import { useAppState } from "./state/AppStateContext"
+import { Card } from "./Card"
+import { AddNewItem } from "./AddNewItem"
+import { useItemDrag } from "./utils/useItemDrag"
+import { useDrop } from "react-dnd"
+import { isHidden } from "./utils/isHidden"
+import { moveList, addTask } from "./state/actions"
 
-import { ColumnContainer, ColumnTitle } from "./styles";
-import React from "react";
-import { Card } from "./Card";
-import { useAppState } from "./state/AppStateContext";
-import { AddNewItem } from "./AddNewItem";
-import { useDrop } from "react-dnd";
-import { moveList, addTask } from "./state/actions";
-import { throttle } from "throttle-debounce-ts";
 type ColumnProps = {
-  text: string;
-  id: string;
-  isPreview?: boolean;
-};
-const Column: React.FC<ColumnProps> = ({ id, text, isPreview }) => {
-  const { draggedItem, getTasksByListId, dispatch } = useAppState();
-  const tasks = getTasksByListId(id);
-  const ref = useRef<HTMLDivElement>(null);
+  text: string
+  id: string
+  isPreview?: boolean
+}
+
+export const Column = ({ text, id, isPreview }: ColumnProps) => {
+  const { draggedItem, getTasksByListId, dispatch } = useAppState()
+  const tasks = getTasksByListId(id)
+  const ref = useRef<HTMLDivElement>(null)
   const [, drop] = useDrop({
     accept: "COLUMN",
-    hover: throttle(200, () => {
+    hover() {
       if (!draggedItem) {
-        return;
+        return
       }
       if (draggedItem.type === "COLUMN") {
         if (draggedItem.id === id) {
-          return;
+          return
         }
 
-        dispatch(moveList(draggedItem.id, id));
+        dispatch(moveList(draggedItem.id, id))
       }
-    }),
-  });
-  // drag(drop(ref));
+    }
+  })
+
+  const { drag } = useItemDrag({ type: "COLUMN", id, text })
+
+  drag(drop(ref))
+
   return (
     <ColumnContainer
+      isPreview={isPreview}
       ref={ref}
       isHidden={isHidden(draggedItem, "COLUMN", id, isPreview)}
     >
       <ColumnTitle>{text}</ColumnTitle>
       {tasks.map((task) => (
-        <Card text={task.text} key={task.id} id={task.id} />
+        <Card text={task.text} key={task.id} />
       ))}
       <AddNewItem
         toggleButtonText="+ Add another card"
@@ -50,7 +54,5 @@ const Column: React.FC<ColumnProps> = ({ id, text, isPreview }) => {
         dark
       />
     </ColumnContainer>
-  );
-};
-
-export default Column;
+  )
+}

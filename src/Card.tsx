@@ -1,8 +1,9 @@
-import { CardContainer } from "./styles";
+import { CardContainer } from "./styles"
+
 type CardProps = {
-  text: string;
-  id: string;
-};
+  text: string
+}
+
 export const Card = ({ text }: CardProps) => {
-  return <CardContainer>{text}</CardContainer>;
-};
+  return <CardContainer>{text}</CardContainer>
+}

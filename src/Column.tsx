@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useItemDrag } from "./utils/useItemDrag";
+
 import { ColumnContainer, ColumnTitle } from "./styles";
 import React from "react";
 import { Card } from "./Card";
@@ -31,7 +32,7 @@ const Column: React.FC<ColumnProps> = ({ id, text }) => {
       }
     }),
   });
-
+  drag(drop(ref));
   return (
     <ColumnContainer ref={ref}>
       <ColumnTitle>{text}</ColumnTitle>
